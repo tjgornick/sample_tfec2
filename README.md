@@ -1,5 +1,5 @@
 # sample_tfec2
-## A working AWS EC2 webserver in 5 minutes or less
+## A working AWS EC2 web server in 5 minutes or less
 
 ### Intro
 This project was created as a personal from-scratch exercise in infrastructure-as-code by way of [Terraform](https://www.terraform.io/) and [Amazon AWS](https://aws.amazon.com/).
@@ -46,6 +46,6 @@ This project creates an Amazon EC2 instance using an [Ubuntu](https://www.ubuntu
 * Terraform implies careful use of their [provisioners](https://www.terraform.io/docs/provisioners). Indeed, the bash script I provide would be better set aside in favor of a true configuration management tool such as [Ansible](https://www.ansible.com/).
 
 * You are using (hopefully) your real AWS account - you may incur [charges](https://aws.amazon.com/ec2/pricing/).
-  * [terraform destroy](https://www.terraform.io/docs/commands/destroy.html) will tear your new webserver down to avoid costs.
+  * [terraform destroy](https://www.terraform.io/docs/commands/destroy.html) will tear your new web server down to avoid costs.
 
 * If you decided to keep your new server, you may want to further restrict the ssh access in your [Security Group](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) settings.
