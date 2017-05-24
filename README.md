@@ -17,19 +17,19 @@ I hope you find it useful!
 * Clone **this** repo
 
 * Create a [terraform.tfvars file](https://www.terraform.io/docs/configuration/variables.html) with your values:
-  ` access_key = "your_access_key_provided_by_aws"
-    secret_key = "your_secret_key_provided_by_aws"
-    key_path = "path/to/where/you/saved/the/pem/provided/by/aws"
-    ssh_user = "ubuntu" (by default for this example)
-    key_name = "name_you_gave_your_key_pair_in_aws" `
+  * `access_key = "your_access_key_provided_by_aws"`
+  * `secret_key = "your_secret_key_provided_by_aws"`
+  * `key_path = "path/to/where/you/saved/the/pem/provided/by/aws"`
+  * `ssh_user = "ubuntu" (by default for this example)`
+  * `key_name = "name_you_gave_your_key_pair_in_aws"`
 
-* Run `[terraform plan](https://www.terraform.io/docs/commands/plan.html)`
+* Run [terraform plan](https://www.terraform.io/docs/commands/plan.html)
   * to check that everything is in place
 
-* Run `[terraform apply](https://www.terraform.io/docs/commands/apply.html)`
+* Run [terraform apply](https://www.terraform.io/docs/commands/apply.html)
   * to make the magic happen
 
-* Run `[terraform refresh](https://www.terraform.io/docs/commands/refresh.html)`
+* Run [terraform refresh](https://www.terraform.io/docs/commands/refresh.html)
   * This wouldn't be necessary if not for a [bug](https://github.com/hashicorp/terraform/issues/14541) that provides the wrong information upon original completion.
 
 * Visit the [AWS Public DNS](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses) address that is output.
@@ -46,6 +46,6 @@ This project creates an Amazon EC2 instance using an [Ubuntu](https://www.ubuntu
 * Terraform implies careful use of their [provisioners](https://www.terraform.io/docs/provisioners). Indeed, the bash script I provide would be better set aside in favor of a true configuration management tool such as [Ansible](https://www.ansible.com/).
 
 * You are using (hopefully) your real AWS account - you may incur [charges](https://aws.amazon.com/ec2/pricing/).
-  * `[terraform destroy](https://www.terraform.io/docs/commands/destroy.html)` will tear your new webserver down to avoid costs.
+  * [terraform destroy](https://www.terraform.io/docs/commands/destroy.html) will tear your new webserver down to avoid costs.
 
 * If you decided to keep your new server, you may want to further restrict the ssh access in your [Security Group](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) settings.
