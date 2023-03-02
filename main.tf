@@ -17,11 +17,30 @@ provider "aws" {
   access_key = var.aws_access_key_id
   secret_key = var.aws_secret_access_key
   region     = var.aws_region
+  default_tags {
+    tags = {
+      Project = "sample_tfec2"
+    }
+  }
 }
 
 # Create VPC
 resource "aws_vpc" "sample_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+}
+
+# Create IGW
+resource "aws_internet_gateway" "sample_internet_gateway" {
+  vpc_id = aws_vpc.sample_vpc.id
+
+}
+
+# Create internet route
+resource "aws_route" "sample_aws_route" {
+  route_table_id         = aws_vpc.sample_vpc.main_route_table_id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.sample_internet_gateway.id
 }
 
 # Create a subnet
@@ -63,6 +82,7 @@ resource "aws_key_pair" "sample_key_pair" {
 resource "aws_security_group" "sample_sg_http_ssh" {
   name        = "sample_sg_http_ssh"
   description = "allow http, ssh traffic in, all out"
+  vpc_id      = aws_vpc.sample_vpc.id
   ingress {
     from_port   = 80
     to_port     = 80
@@ -88,13 +108,14 @@ resource "aws_instance" "sample_ec2_instance" {
   ami           = data.aws_ami.amzlinux2_latest.image_id
   instance_type = "t3.micro"
   key_name      = aws_key_pair.sample_key_pair.key_name
+  subnet_id     = aws_subnet.sample_subnet.id
   ebs_block_device {
     device_name = "/dev/sdh"
     volume_size = 1
     volume_type = "gp2"
   }
-  security_groups = ["sample_sg_http_ssh"]
-  user_data       = file("${var.sample_ec2_provision_script}")
+  vpc_security_group_ids = [aws_security_group.sample_sg_http_ssh.id]
+  user_data              = file("${var.sample_ec2_provision_script}")
 }
 
 output "sample_ec2_instance_public_dns" {
